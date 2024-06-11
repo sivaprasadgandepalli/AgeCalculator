@@ -5,22 +5,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>age calculator||html</title>
 	<style type="text/css">
+		body{
+			width: 100%;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 		#main{
 			background:darkolivegreen;
 			border-radius: 5px;
 			border: 1px solid black;
-			width: 35%;
-			margin: 150px 0 150px 350px;
+			min-width: 25rem;
 		}
 		input{
-			
 			width: 6vw;
 			height: 4vh;
 			margin-bottom: 10px;
 		}
 		.btn{
 			width: fit-content;
-			height: 4vh;
+			padding:.3rem 1rem;
 		}
 		input:focus{
 			border: 2px solid deepskyblue;
@@ -29,48 +34,78 @@
 		h2{
 			text-align: center;
 		}
+		table{
+			margin-inline: .5rem;
+		}
 	</style>
 </head>
 <body>
 	<div id="main">
 		<h2>Age Calculator</h2>
 		<hr>
-		<center><table>
-			<tr>
-				<td>date</td>
-				<td>month</td>
-				<td>Year</td>
-			</tr>
-			<tr>
-				<td><input type="text" name="date" minlength="1" maxlength="2" id="date" placeholder="dd"></td>
-				<td><input type="text" name="month" minlength="1" maxlength="2" id="month" placeholder="mm"></td>
-				<td><input type="text" name="year" minlength="1" maxlength="4" id="year" placeholder="yyyy"></td>
-			</tr>
-		</table></center>
-		<center><input type="button" name="calculator" value="ENTER" onclick="getval()" class="btn"></center>
-		<p id="show" align="center">0 Years 0 Months 0 Days</p>
+		<center>
+			<table>
+				<tr>
+					<td>date</td>
+					<td>month</td>
+					<td>Year</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="date" minlength="1" maxlength="2" id="date" placeholder="dd">
+					</td>
+
+					<td>
+						<input type="text" name="month" minlength="1" maxlength="2" id="month" placeholder="mm">
+					</td>
+
+					<td>
+						<input type="text" name="year" minlength="1" maxlength="4" id="year" placeholder="yyyy">
+					</td>
+				</tr>
+			</table>
+		</center>
+
+	<center>
+		<button onclick="verifyInput()" class="btn">Calculate</button>
+	</center>
+
+	<p id="show" align="center">0 Years 0 Months 0 Days</p>
 	</div>
+
 	<script type="text/javascript">
+		var dt=document.getElementById('date');
+		var mnt=document.getElementById('month');
+		var yr=document.getElementById('year');
+		var dis=document.getElementById('show');
+		function verifyInput(){
+			if(dt.value==="" || mnt.value==="" || yr.value===""){
+				dis.innerText="Please provide valid details."
+			}
+			else{
+				getval();
+			}
+		}
 		function getval(){
-			var dt=document.getElementById('date').value;
-			var mnt=document.getElementById('month').value;
-			var yr=document.getElementById('year').value;
+			let date=+dt.value;
+			let month=+mnt.value;
+			let year=+yr.value;
 			var mnam=[31,28,31,30,31,30,31,31,30,31,30,31];
 			var d=new Date();
 			var d1=d.getDate();
 			var m1=1+d.getMonth();
 			var y1=d.getFullYear();
-			if(dt>d1)
+			if(date>d1)
 			{
 				d1=d1+mnam[m1-1];
 				m1=m1-1;
 			}
-			if(mnt>m1)
+			if(month>m1)
 			{
 				y1=y1-1;
 				m1=m1+12;
 			}
-			var dis=document.getElementById('show').innerText=(y1-yr)+"Years"+" "+(m1-mnt)+" months"+" "+(d1-dt)+" days";
+			dis.innerText=(y1-year)+" Years"+" "+(m1-month)+" months"+" "+(d1-date)+" days";
 		}
 	</script>
 </body>
